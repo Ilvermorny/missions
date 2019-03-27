@@ -5,11 +5,11 @@
  * Date: 8/25/2017
  * Time: 11:29 AM
  */
+define('IN_MYBB', true);
+require_once '../global.php';
 
 require('acceso.php');
 
-require('conexion.php');
-require('forum-conexion.php');
 require('reutilizar/fechas.php');
 
 if (!$acceso) {
@@ -48,18 +48,26 @@ if (!$acceso) {
 
                 if (isset($_POST['user'])) {
 
-                    $user = mysqli_real_escape_string($db, $_POST['user']);
-                    $name = mysqli_real_escape_string($db, $_POST['name']);
-                    $type = mysqli_real_escape_string($db, $_POST['type']);
-                    $init = mysqli_real_escape_string($db, $_POST['init']);
-                    $end = mysqli_real_escape_string($db, $_POST['end']);
-                    $creator = mysqli_real_escape_string($db, $_POST['user']);
-                    $link = mysqli_real_escape_string($db, $_POST['link']);
-                    $description = mysqli_real_escape_string($db, $_POST['description']);
+                    $user = $db->escape_string($_POST['user']);
+                    $name = $db->escape_string($_POST['name']);
+                    $type = $db->escape_string($_POST['type']);
+                    $init = $db->escape_string($_POST['init']);
+                    $end = $db->escape_string($_POST['end']);
+                    $creator = $db->escape_string($_POST['user']);
+                    $link = $db->escape_string($_POST['link']);
+                    $description = $db->escape_string($_POST['description']);
 
                     $query = sprintf("INSERT INTO mision (name, type, description, link, init, end, user) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", $name, $type, $description, $link, $init, $end, $user);
-                    $result = $db->query($query);
-                    header('Location: mision.php?id=' . mysqli_insert_id($db));
+                    $db->insert_query('mission', array(
+                        'name' => $name,
+                        'type' => $type,
+                        'description' => $description,
+                        'link' => $link,
+                        'init' => $init,
+                        'end' => $end,
+                        'user' => $creator
+                    ));
+                    header('Location: mision.php?id=' . $db->insert_id());
                 }
 
                 ?>
