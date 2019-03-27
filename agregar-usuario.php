@@ -5,14 +5,14 @@
  * Date: 27-Aug-17
  * Time: 9:04 AM
  */
+define('IN_MYBB', true);
+require_once '../global.php';
 
-require ('acceso.php');
+require('acceso.php');
 
-require('conexion.php');
-require('forum-conexion.php');
 require('reutilizar/fechas.php');
 
-if (!$acceso){
+if (!$acceso) {
     header('Location: error.php');
 }
 
@@ -35,39 +35,39 @@ if (!$acceso){
 
 <body>
 
-<?php
-include ('reutilizar/menu.php');
-?>
+    <?php
+    include('reutilizar/menu.php');
+    ?>
 
-<div class="container">
-    <br><br>
-    <div class="panel panel-info">
-        <div class="panel-heading">Agregar Participante</div>
-        <div class="panel-body">
-            <?php
+    <div class="container">
+        <br><br>
+        <div class="panel panel-info">
+            <div class="panel-heading">Agregar Participante</div>
+            <div class="panel-body">
+                <?php
 
-            if(isset($_POST['id_mision'])){
+                if (isset($_POST['id_mision'])) {
 
-                $user = mysqli_real_escape_string($db, $_POST['user']);
-                $experience = mysqli_real_escape_string($db, $_POST['experience']);
-                $extraprize = mysqli_real_escape_string($db, $_POST['extraprize']);
-                $id_mission = mysqli_real_escape_string($db, $_POST['id_mision']);
+                    $user = $db->escape_string($_POST['user']);
+                    $experience = $db->escape_string($_POST['experience']);
+                    $extraprize = $db->escape_string($_POST['extraprize']);
+                    $id_mission = $db->escape_string($_POST['id_mision']);
 
-                $query = sprintf("INSERT INTO usersinmission (id_user, id_mission, experience, extraprize) VALUES ('%s', '%s', '%s', '%s')", $user, $id_mission, $experience, $extraprize);
-                $db->query($query);
-                header('Location: mision.php?id='.$id_mission);
-            }
+                    $db->insert_query('mission_users', array(
+                        'id_user' => $user,
+                        'id_mission' => $id_mission,
+                        'experience' => $experience,
+                        'extraprize' => $extraprize,
+                    ));
+                    header('Location: mision.php?id=' . $id_mission);
+                }
 
-
-            //$query = sprintf("SELECT * FROM mision WHERE id = '%s' LIMIT 1", $_POST['mision']);
-            //$result = $db->query($query);
-            //$mision = mysqli_fetch_array($result);
-            ?>
-            <?php
-            if (isset($_POST['mision_id'])){
-            ?>
+                ?>
+                <?php
+                if (isset($_POST['mision_id'])) {
+                    ?>
                 <form class="form-horizontal" role="form" method="post">
-                    <input type="hidden" name="id_mision"  value="<?php echo $_POST['mision_id'];?>">
+                    <input type="hidden" name="id_mision" value="<?php echo $_POST['mision_id']; ?>">
 
                     <div class="form-group">
                         <label for="user" class="col-lg-2 control-label">Usuario</label>
@@ -94,16 +94,18 @@ include ('reutilizar/menu.php');
                     </button><br>
                 </form>
 
-            <?php
+                <?php
+
             }
             ?>
 
 
 
 
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 </body>
-</html>
+
+</html> 

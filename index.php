@@ -14,7 +14,6 @@ require('acceso.php');
 require('reutilizar/fechas.php');
 
 
-$query = sprintf("SELECT * FROM mision where status != '0' ORDER BY status");
 $result = $db->simple_select("mission", "*", "status != 0", array(
     "order_by" => 'status'
 ));
@@ -41,7 +40,6 @@ if ($page > $totalpages)
 
 $start = ($page - 1) * $perpage;
 
-$query = sprintf("SELECT * FROM mision where status != '0' ORDER BY status, init  LIMIT %d, %d", $start, $perpage);
 $result = $db->simple_select("mission", "*", "status != 0", array(
     "limit" => "$start, $perpage",
     "order_by" => 'status'
