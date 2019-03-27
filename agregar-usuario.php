@@ -49,7 +49,7 @@ if (!$acceso) {
                 if (isset($_POST['id_mision'])) {
 
                     $user = $db->escape_string($_POST['user']);
-                    $experience = $db->escape_string($_POST['experience']);
+                    $experience = intval($db->escape_string($_POST['experience']));
                     $extraprize = $db->escape_string($_POST['extraprize']);
                     $id_mission = $db->escape_string($_POST['id_mision']);
 
