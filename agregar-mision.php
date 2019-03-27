@@ -52,19 +52,16 @@ if (!$acceso) {
                     $name = $db->escape_string($_POST['name']);
                     $type = $db->escape_string($_POST['type']);
                     $init = $db->escape_string($_POST['init']);
-                    $end = $db->escape_string($_POST['end']);
                     $creator = $db->escape_string($_POST['user']);
                     $link = $db->escape_string($_POST['link']);
                     $description = $db->escape_string($_POST['description']);
 
-                    $query = sprintf("INSERT INTO mision (name, type, description, link, init, end, user) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')", $name, $type, $description, $link, $init, $end, $user);
                     $db->insert_query('mission', array(
                         'name' => $name,
                         'type' => $type,
                         'description' => $description,
                         'link' => $link,
                         'init' => $init,
-                        'end' => $end,
                         'user' => $creator
                     ));
                     header('Location: mision.php?id=' . $db->insert_id());
