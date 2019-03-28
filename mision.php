@@ -109,7 +109,6 @@ require('reutilizar/fechas.php');
                     echo sprintf("<b>Master de la misión: </b>%s<br />",  $arrayResulado['username']);
                     echo sprintf("<b>Ver en el  foro: </b><a href='%s' target='_blank'>%s</a><br />", $mision['link'], $mision['link']);
                     echo sprintf("<b>Descripción de la misión: </b><br><br><div class=\"well\">%s</div>", $mision['description']);
-                    $query = sprintf("SELECT * FROM usersinmission WHERE id_mission = '%s'", $_REQUEST['id']);
                     $result = $result = $db->simple_select('mission_users', '*', "id_mission=" . $_REQUEST['id'], array(
                         "order_by" => 'id_user'
                     ));
@@ -149,7 +148,7 @@ require('reutilizar/fechas.php');
                             if ($db->num_rows($result) > 0) {
 
                                 while ($row = $db->fetch_array($result)) {
-                                    echo sprintf("<tr id='fila-%s'>", $row['id_usermission']);
+                                    echo sprintf("<tr id='fila-%s'>", $row['id_mission_users']);
                                     echo "<td>";
                                     $resultadoTemp = $db->simple_select("users", "*", "uid=" . $row['id_user'], array(
                                         "limit" => 1
@@ -172,17 +171,17 @@ require('reutilizar/fechas.php');
                                     if ($acceso) {
                                         echo "<td>";
                                         echo "<form action='editar-usuario.php' method='post'>";
-                                        echo sprintf("<input type='hidden' name='id_usermission' value='%s'>", $row['id_usermission']);
+                                        echo sprintf("<input type='hidden' name='id_mission_users' value='%s'>", $row['id_mission_users']);
                                         echo "<button type=\"submit\" class=\"btn btn-xs btn-primary\">";
                                         echo "<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Editar";
                                         echo "</button></form>";
 
                                         echo "<td>";
                                         echo "<form action='borrar-usuario.php' method='post'>";
-                                        echo sprintf("<input type='hidden' name='id_usermission' value='%s' id='%s'>", $row['id_usermission'], $row['id_usermission']);
+                                        echo sprintf("<input type='hidden' name='id_mission_users' value='%s' id='%s'>", $row['id_mission_users'], $row['id_mission_users']);
                                         //echo sprintf("), $row['']);
                                         ?>
-                            <button type="button" href="javascript:;" class="btn btn-xs btn-danger" onclick="showPopUp(<?php echo $row['id_usermission']; ?>)">
+                            <button type="button" href="javascript:;" class="btn btn-xs btn-danger" onclick="showPopUp(<?php echo $row['id_mission_users']; ?>)">
                                 <?php
                                 echo "<span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\"></span> Borrar";
                                 echo "</button></form>";
