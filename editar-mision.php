@@ -50,7 +50,10 @@ if (!$acceso) {
                     $id = $db->escape_string($_POST['save']);
                     $name = $db->escape_string($_POST['name']);
                     $init = $db->escape_string($_POST['init']);
-                    $end = ($db->escape_string($_POST['end']) == "") ? $db->escape_string($_POST['end']) : null;
+                    $end = $db->escape_string($_POST['end']);
+                    if ($end == '') :
+                        $end = null;
+                    endif;
                     $creator = $db->escape_string($_POST['user']);
                     $link = $db->escape_string($_POST['link']);
                     $description = $db->escape_string($_POST['description']);
