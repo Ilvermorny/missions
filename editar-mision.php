@@ -81,11 +81,11 @@ if (!$acceso) {
                     $mision = $db->fetch_array($result);
                     ?>
                 <form class="form-horizontal" role="form" method="post">
-                    <input type="hidden" name="save" value="<? echo $missionid; ?>">
+                    <input type="hidden" name="save" value="<?= $missionid; ?>">
                     <div class="form-group">
                         <label for="name" class="col-lg-2 control-label">Nombre</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="name" value="<?php echo $mision['name']; ?>" required>
+                            <input type="text" class="form-control" name="name" value="<?= $mision['name']; ?>" required>
                         </div>
                     </div>
 
@@ -93,11 +93,11 @@ if (!$acceso) {
                         <label for="type" class="col-lg-2 control-label">Tipo de Misión</label>
                         <div class="col-lg-10">
                             <select class="form-control" name="type">
-                                <option value="Normal" <? if ($mision['type'] == 'Normal') echo "selected"; ?>>Normal</option>
-                                <option value="Bando" <? if ($mision['type'] == 'Bando') echo "selected"; ?>>Bando</option>
-                                <option value="Cadena" <? if ($mision['type'] == 'Cadena') echo "selected"; ?>>Cadena</option>
-                                <option value="Restringida" <? if ($mision['type'] == 'Restringida') echo "selected"; ?>>Restringida</option>
-                                <option value="Limite de Tiempo" <? if ($mision['type'] == 'Limite de Tiempo') echo "selected"; ?>>Limite de Tiempo</option>
+                                <option value="Normal" <?php if ($mision['type'] == 'Normal') echo "selected"; ?>>Normal</option>
+                                <option value="Bando" <?php if ($mision['type'] == 'Bando') echo "selected"; ?>>Bando</option>
+                                <option value="Cadena" <?php if ($mision['type'] == 'Cadena') echo "selected"; ?>>Cadena</option>
+                                <option value="Restringida" <?php if ($mision['type'] == 'Restringida') echo "selected"; ?>>Restringida</option>
+                                <option value="Limite de Tiempo" <?php if ($mision['type'] == 'Limite de Tiempo') echo "selected"; ?>>Limite de Tiempo</option>
                             </select>
                         </div>
                     </div>
@@ -106,10 +106,10 @@ if (!$acceso) {
                         <label for="difficulty" class="col-lg-2 control-label">Dificultad</label>
                         <div class="col-lg-10">
                             <select class="form-control" name="difficulty">
-                                <option value="A" <? if ($mision['difficulty'] == 'A') echo "selected"; ?>>A</option>
-                                <option value="AA" <? if ($mision['difficulty'] == 'AA') echo "selected"; ?>>AA</option>
-                                <option value="AAA" <? if ($mision['difficulty'] == 'AAA') echo "selected"; ?>>AAA</option>
-                                <option value="Especial" <? if ($mision['difficulty'] == 'Especial') echo "selected"; ?>>Especial</option>
+                                <option value="A" <?php if ($mision['difficulty'] == 'A') echo "selected"; ?>>A</option>
+                                <option value="AA" <?php if ($mision['difficulty'] == 'AA') echo "selected"; ?>>AA</option>
+                                <option value="AAA" <?php if ($mision['difficulty'] == 'AAA') echo "selected"; ?>>AAA</option>
+                                <option value="Especial" <?php if ($mision['difficulty'] == 'Especial') echo "selected"; ?>>Especial</option>
                             </select>
                         </div>
                     </div>
@@ -118,14 +118,14 @@ if (!$acceso) {
                     <div class="form-group">
                         <label for="init" class="col-lg-2 control-label">Fecha de Inicio</label>
                         <div class="col-lg-10">
-                            <input type="date" class="form-control" name="init" value="<? echo $mision['init']; ?>" required>
+                            <input type="date" class="form-control" name="init" value="<?= $mision['init']; ?>" required>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="end" class="col-lg-2 control-label">Fecha de Finalización</label>
                         <div class="col-lg-10">
-                            <input type="date" class="form-control" name="end" value="<? echo $mision['end']; ?>">
+                            <input type="date" class="form-control" name="end" value="<?= $mision['end']; ?>">
                         </div>
                     </div>
 
@@ -133,8 +133,8 @@ if (!$acceso) {
                         <label for="status" class="col-lg-2 control-label">Estado de la Misión</label>
                         <div class="col-lg-10">
                             <select class="form-control" name="status">
-                                <option value="1" <? if ($mision['status'] == 1) echo "selected"; ?>>Abierta</option>
-                                <option value="2" <? if ($mision['status'] == 2) echo "selected"; ?>>Cerrada</option>
+                                <option value="1" <?php if ($mision['status'] == 1) echo "selected"; ?>>Abierta</option>
+                                <option value="2" <?php if ($mision['status'] == 2) echo "selected"; ?>>Cerrada</option>
                             </select>
                         </div>
                     </div>
@@ -150,7 +150,7 @@ if (!$acceso) {
                             ));
                             $user = $db->fetch_array($resultuser);
                             ?>
-                            <input type="text" class="form-control" name="user" value="<?php echo $user['username']; ?>" disabled>
+                            <input type="text" class="form-control" name="user" value="<?= $user['username']; ?>" disabled>
                         </div>
                     </div>
 
@@ -159,9 +159,9 @@ if (!$acceso) {
                         <div class="col-lg-10">
                             <div class="input-group">
                                 <div class="input-group-btn">
-                                    <a href="<?php echo $mision['link']; ?>" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false" target="_blank">Ver</a>
+                                    <a href="<?= $mision['link']; ?>" type="button" class="btn btn-default" aria-haspopup="true" aria-expanded="false" target="_blank">Ver</a>
                                 </div>
-                                <input type="url" class="form-control" name="link" value="<?php echo $mision['link']; ?>" required>
+                                <input type="url" class="form-control" name="link" value="<?= $mision['link']; ?>" required>
                             </div>
                         </div>
                     </div>
@@ -169,7 +169,7 @@ if (!$acceso) {
                     <div class="form-group">
                         <label for="description" class="col-lg-2 control-label">Descripción</label>
                         <div class="col-lg-10">
-                            <textarea class="form-control" rows="10" name="description" required><?php echo $mision['description']; ?></textarea>
+                            <textarea class="form-control" rows="10" name="description" required><?= $mision['description']; ?></textarea>
                         </div>
                     </div>
 
