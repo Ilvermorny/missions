@@ -51,26 +51,25 @@ if (!$acceso) {
                     $name = $db->escape_string($_POST['name']);
                     $init = $db->escape_string($_POST['init']);
                     $end = $db->escape_string($_POST['end']);
-                    if ($end == '') :
-                        $end = null;
-                    endif;
                     $creator = $db->escape_string($_POST['user']);
                     $link = $db->escape_string($_POST['link']);
                     $description = $db->escape_string($_POST['description']);
                     $status = $db->escape_string($_POST['status']);
                     $type = $db->escape_string($_POST['type']);
                     $difficulty = $db->escape_string($_POST['difficulty']);
-
-                    $db->update_query("mission", array(
+                    $updateArray = array(
                         'name' => $name,
                         'type' => $type,
                         'difficulty' => $difficulty,
                         'init' => $init,
-                        'end' => $end,
                         'link' => $link,
                         'description' => $description,
                         'status' => $status
-                    ), "id=$id");
+                    );
+                    if ($end != '')
+                        $updateArray['end'] = $end;
+
+                    $db->update_query("mission", $updateArray, "id=$id");
                     header('Location: mision.php?id=' . $id);
                     die;
                 }
