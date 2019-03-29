@@ -52,15 +52,13 @@ if (!$acceso) {
                 <?php
 
                 if (isset($_POST['id_user_mision_save'])) {
-
                     $id_user_mision_save = $db->escape_string($_POST['id_user_mision_save']);
                     $experience = $db->escape_string($_POST['experience']);
                     $extraprize = $db->escape_string($_POST['extraprize']);
-
                     $db->update_query("mission_users", array(
                         'experience' => $experience,
                         'extraprize' => $extraprize
-                    ), "id_usermission=$id_user_mision_save");
+                    ), "id_mission_users=$id_user_mision_save");
 
                     header('Location: mision.php?id=' . $_POST['id_mision']);
                     die;
@@ -72,9 +70,9 @@ if (!$acceso) {
                 //$mision = mysqli_fetch_array($result);
                 ?>
                 <?php
-                if (isset($_POST['id_usermission'])) {
-                    $id_usermission = $db->escape_string($_POST['id_usermission']);
-                    $result = $db->simple_select("mission_users", "*", "id_usermission=$id_usermission", array(
+                if (isset($_POST['id_mission_users'])) {
+                    $id_usermission = $db->escape_string($_POST['id_mission_users']);
+                    $result = $db->simple_select("mission_users", "*", "id_mission_users=$id_usermission", array(
                         'limit' => '1'
                     ));
                     $user_mision = $db->fetch_array($result);
@@ -87,7 +85,7 @@ if (!$acceso) {
 
                     ?>
                 <form class="form-horizontal" role="form" method="post">
-                    <input type="hidden" name="id_user_mision_save" value="<?= $user_mision['id_usermission']; ?>">
+                    <input type="hidden" name="id_user_mision_save" value="<?= $user_mision['id_mission_users']; ?>">
                     <input type="hidden" name="id_mision" value="<?= $user_mision['id_mission']; ?>">
 
                     <div class="form-group">
@@ -131,7 +129,7 @@ if (!$acceso) {
             </div>
         </div>
 
-    </div>
+        </ div>
 </body>
 
 </html> 
