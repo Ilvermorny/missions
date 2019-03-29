@@ -47,7 +47,7 @@ if (!$acceso) {
     <div class="container">
         <br><br>
         <div class="panel panel-info">
-            <div class="panel-heading">Agregar Misión</div>
+            <div class="panel-heading">Editar Usuario</div>
             <div class="panel-body">
                 <?php
 
@@ -57,7 +57,6 @@ if (!$acceso) {
                     $experience = $db->escape_string($_POST['experience']);
                     $extraprize = $db->escape_string($_POST['extraprize']);
 
-                    $query = sprintf("UPDATE usersinmission SET experience = '%s', extraprize = '%s' WHERE id_usermission = '%s'", $experience, $extraprize, $id_user_mision_save);
                     $db->update_query("mission_users", array(
                         'experience' => $experience,
                         'extraprize' => $extraprize
@@ -74,25 +73,27 @@ if (!$acceso) {
                 ?>
                 <?php
                 if (isset($_POST['id_usermission'])) {
-                    $id_usermission = mysqli_real_escape_string($db, $_POST['id_usermission']);
-                    $query = sprintf("SELECT * FROM usersinmission WHERE id_usermission = '%s' LIMIT 1", $id_usermission);
-                    $result = $db->query($query);
-                    $user_mision = mysqli_fetch_array($result);
+                    $id_usermission = $db->escape_string($_POST['id_usermission']);
+                    $result = $db->simple_select("mission_users", "*", "id_usermission=$id_usermission", array(
+                        'limit' => '1'
+                    ));
+                    $user_mision = $db->fetch_array($result);
 
-                    $tmpquery = sprintf("SELECT * FROM mybb_users WHERE uid = '%s' LIMIT 1", $user_mision['id_user']);
-                    $resultadoTemp = $db2->query($tmpquery);
-                    $arrayResulado = mysqli_fetch_array($resultadoTemp);
+                    $resultadoTemp = $db->simple_select("users", "*", "uid=" . $user_mision['id_user'], array(
+                        'limit' => '1'
+                    ));
+                    $arrayResulado = $db->fetch_array($resultadoTemp);
                     $mostrarDueno = $arrayResulado['username'];
 
                     ?>
                 <form class="form-horizontal" role="form" method="post">
-                    <input type="hidden" name="id_user_mision_save" value="<?php echo $user_mision['id_usermission']; ?>">
-                    <input type="hidden" name="id_mision" value="<?php echo $user_mision['id_mission']; ?>">
+                    <input type="hidden" name="id_user_mision_save" value="<?= $user_mision['id_usermission']; ?>">
+                    <input type="hidden" name="id_mision" value="<?= $user_mision['id_mission']; ?>">
 
                     <div class="form-group">
                         <label for="user" class="col-lg-2 control-label">Usuario</label>
                         <div class="col-lg-10">
-                            <input type="text" class="form-control" name="user" disabled value="<?php echo $arrayResulado['username']; ?>">
+                            <input type="text" class="form-control" name="user" disabled value="<?= $arrayResulado['username']; ?>">
                         </div>
                     </div>
 
@@ -107,13 +108,13 @@ if (!$acceso) {
                     <div class="form-group">
                         <label for="extraprize" class="col-lg-2 control-label">Premios Adicionales</label>
                         <div class="col-lg-10">
-                            <textarea class="form-control" rows="10" name="extraprize"><?php echo $user_mision['extraprize']; ?></textarea>
+                            <textarea class="form-control" rows="10" name="extraprize"><?= $user_mision['extraprize']; ?></textarea>
                         </div>
                     </div>
                     <button type='submit' class="btn btn-default btn-primary btn-block">Guardar
                     </button><br>
 
-                    <a href="mision.php?id=<?php echo $user_mision['id_mission']; ?>" type="button" class="btn btn-default btn-danger btn-block">Cancelar
+                    <a href="mision.php?id=<?= $user_mision['id_mission']; ?>" type="button" class="btn btn-default btn-danger btn-block">Cancelar
                     </a><br>
 
 
